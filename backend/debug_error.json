@@ -1,0 +1,9 @@
+{
+  "status": 409,
+  "body": {
+    "error": {
+      "code": "CONFLICT",
+      "message": "Phone number already registered"
+    }
+  }
+}

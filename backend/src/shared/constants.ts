@@ -1,0 +1,67 @@
+/**
+ * Shared Constants
+ * 
+ * Contains all "magic strings" and constant values used across the application.
+ */
+
+export const USERS_ROLES = {
+    USER: 'USER',
+    VOLUNTEER: 'VOLUNTEER',
+    PROFESSIONAL: 'PROFESSIONAL',
+    ADMIN: 'ADMIN'
+} as const;
+
+export const EMERGENCY_TYPES = {
+    MEDICAL: 'MEDICAL',
+    FIRE: 'FIRE',
+    ACCIDENT: 'ACCIDENT',
+    CRIME: 'CRIME',
+    NATURAL_DISASTER: 'NATURAL_DISASTER',
+    OTHER: 'OTHER'
+} as const;
+
+export const SOS_STATUS = {
+    PENDING: 'PENDING',
+    ACCEPTED: 'ACCEPTED',
+    IN_PROGRESS: 'IN_PROGRESS',
+    RESOLVED: 'RESOLVED',
+    CANCELLED: 'CANCELLED',
+    ESCALATED: 'ESCALATED',
+    EXPIRED: 'EXPIRED'
+} as const;
+
+export const SOS_PRIORITY = {
+    CRITICAL: 'CRITICAL',
+    HIGH: 'HIGH',
+    MEDIUM: 'MEDIUM',
+    LOW: 'LOW'
+} as const;
+
+export const VOLUNTEER_SKILLS = [
+    'FIRST_AID',
+    'CPR',
+    'FIREFIGHTING',
+    'SEARCH_RESCUE',
+    'COUNSELING',
+    'MEDICAL_PROFESSIONAL',
+    'DRIVER',
+    'TRANSLATOR',
+    'OTHER'
+] as const;
+
+export const ACTIVITY_TYPES = {
+    LOCATION_MISMATCH: 'LOCATION_MISMATCH',
+    RATE_LIMIT_EXCEEDED: 'RATE_LIMIT_EXCEEDED',
+    MULTIPLE_FAILED_LOGINS: 'MULTIPLE_FAILED_LOGINS',
+    SPAM_MESSAGES: 'SPAM_MESSAGES'
+} as const;
+
+export const DOCUMENT_TYPES = {
+    ID_PROOF: 'ID_PROOF',
+    CERTIFICATION: 'CERTIFICATION',
+    BACKGROUND_CHECK: 'BACKGROUND_CHECK',
+    MEDICAL_LICENSE: 'MEDICAL_LICENSE',
+    DEGREE: 'DEGREE',
+    HOSPITAL_ID: 'HOSPITAL_ID',
+    OTHER: 'OTHER'
+} as const;

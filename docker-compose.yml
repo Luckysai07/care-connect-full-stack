@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+      # Add other env vars here or use .env file
+    volumes:
+      # Mount source for development if we want to use nodemon (override CMD in override file later)
+      - ./backend/uploads:/app/uploads
+    networks:
+      - care-connect-net
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80" # Mapping 80 container to 5173 host to match dev convention
+    depends_on:
+      - backend
+    networks:
+      - care-connect-net
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - care-connect-net
+
+volumes:
+  redis_data:
+
+
+networks:
+  care-connect-net:
+    driver: bridge

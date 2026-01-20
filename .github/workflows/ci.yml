@@ -1,0 +1,62 @@
+name: CareConnect CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  backend-test:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Verify Build
+      run: npm run build
+
+    - name: Run Tests
+      run: npm test
+      env:
+        # Mock env vars for testing
+        JWT_ACCESS_SECRET: test_secret
+        JWT_REFRESH_SECRET: test_secret_refresh
+        DATABASE_URL: postgres://test:test@localhost:5432/test_db
+
+  frontend-build:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Build Project
+      run: npm run build
