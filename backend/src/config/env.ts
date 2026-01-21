@@ -22,6 +22,17 @@ function validateEnv(requiredVars: string[]): void {
             'Please check your .env file and ensure all required variables are set.'
         );
     }
+
+    // Guardrail: Prevent using localhost database in production (Render)
+    if ((process.env.NODE_ENV === 'production') &&
+        process.env.DATABASE_URL &&
+        (process.env.DATABASE_URL.includes('localhost') || process.env.DATABASE_URL.includes('127.0.0.1'))) {
+        throw new Error(
+            'CRITICAL CONFIGURATION ERROR: You are trying to connect to a localhost database in PRODUCTION.\n' +
+            'In Render, the app and database are in separate containers.\n' +
+            'You MUST set DATABASE_URL to the Render Internal Connection String (e.g. postgres://user:pass@dpg-...-a.render.com/db)'
+        );
+    }
 }
 
 // Validate critical environment variables
