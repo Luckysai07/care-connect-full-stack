@@ -11,6 +11,7 @@ services:
       - PORT=3000
       - NODE_ENV=production
       - REDIS_URL=redis://redis:6379
+      - NO_SSL=true # Disable SSL for local Docker production test
     volumes:
       # Mount source for development if we want to use nodemon (override CMD in override file later)
       - ./backend/uploads:/app/uploads

@@ -19,8 +19,8 @@ const pool = new Pool({
     max: config.database.maxConnections,
     idleTimeoutMillis: config.database.idleTimeoutMillis,
     connectionTimeoutMillis: config.database.connectionTimeoutMillis,
-    // Use SSL in production on Render/Cloud, but allow disabling it for local Docker
-    ssl: process.env.RENDER || config.isProduction()
+    // Use SSL in production (Render/Cloud), unless explicitly disabled (e.g. local Docker)
+    ssl: config.isProduction() && !process.env.NO_SSL
         ? { rejectUnauthorized: false }
         : false
 });
