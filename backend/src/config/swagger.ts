@@ -1,6 +1,6 @@
-const swaggerJsdoc = require('swagger-jsdoc');
+import swaggerJsdoc from 'swagger-jsdoc';
 
-const options = {
+const options: swaggerJsdoc.Options = {
     definition: {
         openapi: '3.0.0',
         info: {
@@ -27,8 +27,9 @@ const options = {
             },
         },
     },
-    apis: ['./src/server.js', './src/modules/**/*.js'], // Files to scan for annotations
+    apis: ['./src/server.ts', './src/modules/**/*.ts'], // Files to scan for annotations
 };
 
 const specs = swaggerJsdoc(options);
-module.exports = specs;
+
+export default specs;

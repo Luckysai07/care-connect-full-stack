@@ -85,12 +85,11 @@ const logger = winston.createLogger({
 /**
  * Add console transport in development (clean output)
  */
-if (config.isDevelopment()) {
-    logger.add(new winston.transports.Console({
-        format: consoleFormat,
-        level: 'info' // Only show info and above (skip debug)
-    }));
-}
+// Always log to console in Docker/Container environments for visibility
+logger.add(new winston.transports.Console({
+    format: consoleFormat,
+    level: 'info'
+}));
 
 /**
  * Log HTTP request (only errors and warnings, plus success in dev)
@@ -112,14 +111,14 @@ logger.logRequest = (req: any, res: any, duration: number) => {
         });
     } else {
         // Log successful requests in development for visibility
-        if (config.isDevelopment()) {
-            logger.info('Request Completed', {
-                method: req.method,
-                url: req.originalUrl,
-                statusCode: res.statusCode,
-                duration: `${duration}ms`
-            });
-        }
+        // if (config.isDevelopment()) {
+        logger.info('Request Completed', {
+            method: req.method,
+            url: req.originalUrl,
+            statusCode: res.statusCode,
+            duration: `${duration}ms`
+        });
+        // }
     }
 };
 

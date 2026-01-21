@@ -68,7 +68,7 @@ class SOSController {
                 res.status(401).json({ message: 'Unauthorized' });
                 return;
             }
-            const sos = await sosService.getSOSDetails(req.params.sosId, req.user.id);
+            const sos = await sosService.getSOSDetails(req.params.sosId as string, req.user.id);
             res.json(sos);
         } catch (error) {
             next(error);
@@ -85,7 +85,7 @@ class SOSController {
                 res.status(401).json({ message: 'Unauthorized' });
                 return;
             }
-            const sos = await sosService.acceptSOS(req.params.sosId, req.user.id);
+            const sos = await sosService.acceptSOS(req.params.sosId as string, req.user.id);
             res.json(sos);
         } catch (error) {
             next(error);
@@ -103,7 +103,7 @@ class SOSController {
                 return;
             }
             const result = await sosService.rejectSOS(
-                req.params.sosId,
+                req.params.sosId as string,
                 req.user.id,
                 req.body.reason
             );
@@ -124,7 +124,7 @@ class SOSController {
                 return;
             }
             const sos = await sosService.updateStatus(
-                req.params.sosId,
+                req.params.sosId as string,
                 req.user.id,
                 req.body.status
             );
@@ -145,7 +145,7 @@ class SOSController {
                 return;
             }
             const result = await sosService.addFeedback(
-                req.params.sosId,
+                req.params.sosId as string,
                 req.user.id,
                 req.body
             );

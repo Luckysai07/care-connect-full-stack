@@ -20,7 +20,8 @@ const pool = new Pool({
     idleTimeoutMillis: config.database.idleTimeoutMillis,
     connectionTimeoutMillis: config.database.connectionTimeoutMillis,
     // Use SSL in production
-    ssl: config.isProduction() ? { rejectUnauthorized: false } : false
+    // ssl: config.isProduction() ? { rejectUnauthorized: false } : false
+    ssl: false // Disabled for local Docker deployment connecting to host DB
 });
 
 /**

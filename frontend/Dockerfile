@@ -4,7 +4,7 @@ FROM node:20-alpine as builder
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 COPY . .
 
@@ -31,4 +31,4 @@ RUN echo 'server { \
 EXPOSE 80
 
 # Start Nginx causing it to write config.js first
-CMD ["/bin/sh", "-c", "echo \"window.__RUNTIME_CONFIG__ = { API_URL: '${VITE_API_URL:-http://localhost:5000/api}', SOCKET_URL: '${VITE_SOCKET_URL:-http://localhost:5000}' };\" > /usr/share/nginx/html/config.js && nginx -g 'daemon off;'"]
+CMD ["/bin/sh", "-c", "echo \"window.__RUNTIME_CONFIG__ = { API_URL: '${VITE_API_URL:-http://localhost:3000}', SOCKET_URL: '${VITE_SOCKET_URL:-http://localhost:3000}' };\" > /usr/share/nginx/html/config.js && nginx -g 'daemon off;'"]

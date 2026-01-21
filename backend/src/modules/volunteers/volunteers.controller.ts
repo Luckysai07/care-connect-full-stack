@@ -90,7 +90,7 @@ class VolunteersController {
                 return;
             }
             const result = await volunteersService.verifyVolunteer(
-                req.params.volunteerId,
+                req.params.volunteerId as string,
                 req.user.id
             );
             res.json(result);
@@ -126,7 +126,7 @@ class VolunteersController {
                 res.status(401).json({ message: 'Unauthorized' });
                 return;
             }
-            const result = await volunteersService.acceptSOS(req.user.id, req.params.sosId);
+            const result = await volunteersService.acceptSOS(req.user.id, req.params.sosId as string);
             res.json(result);
         } catch (error) {
             next(error);
@@ -143,7 +143,7 @@ class VolunteersController {
                 res.status(401).json({ message: 'Unauthorized' });
                 return;
             }
-            const result = await volunteersService.declineSOS(req.user.id, req.params.sosId);
+            const result = await volunteersService.declineSOS(req.user.id, req.params.sosId as string);
             res.json(result);
         } catch (error) {
             next(error);
@@ -177,7 +177,7 @@ class VolunteersController {
                 res.status(401).json({ message: 'Unauthorized' });
                 return;
             }
-            const result = await volunteersService.completeSOS(req.user.id, req.params.sosId);
+            const result = await volunteersService.completeSOS(req.user.id, req.params.sosId as string);
             res.json(result);
         } catch (error) {
             next(error);

@@ -29,7 +29,7 @@ class UsersController {
      */
     async getProfile(req: Request, res: Response, next: NextFunction) {
         try {
-            const profile = await usersService.getProfile(req.params.userId);
+            const profile = await usersService.getProfile(req.params.userId as string);
             res.json(profile);
         } catch (error) {
             next(error);

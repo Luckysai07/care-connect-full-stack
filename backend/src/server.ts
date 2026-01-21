@@ -73,9 +73,8 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Request logging
-if (config.isDevelopment()) {
-    app.use(requestLogger);
-}
+// Request logging
+app.use(requestLogger);
 
 // Rate limiting
 app.use('/api', apiLimiter);

@@ -100,7 +100,7 @@ const adminController = {
             const adminId = req.user.id;
 
             const { default: volunteersService } = await import('../volunteers/volunteers.service.js');
-            await volunteersService.verifyVolunteer(id, adminId);
+            await volunteersService.verifyVolunteer(id as string, adminId);
 
             res.json({ message: 'Volunteer verified successfully' });
         } catch (error) {
@@ -118,7 +118,7 @@ const adminController = {
             const adminId = req.user.id;
 
             const { default: volunteersService } = await import('../volunteers/volunteers.service.js');
-            await volunteersService.rejectVolunteer(id, adminId);
+            await volunteersService.rejectVolunteer(id as string, adminId);
 
             res.json({ message: 'Volunteer rejected successfully' });
         } catch (error) {

@@ -40,10 +40,10 @@ class SOSService {
           user_id, emergency_type, priority, location, description, image_url, status, expires_at
         )
         VALUES (
-          $1, $2, $3, ST_SetSRID(ST_MakePoint($4, $5), 4326), $6, $7, $8, $9
+          $1, $2, $3, ST_SetSRID(ST_MakePoint($4, $5), 4326), $6, $7, $8, NOW() + INTERVAL '2 minutes'
         )
         RETURNING id, created_at, expires_at`,
-                [userId, emergencyType, priority, longitude, latitude, description, imageUrl, SOS_STATUS.PENDING, expiresAt]
+                [userId, emergencyType, priority, longitude, latitude, description, imageUrl, SOS_STATUS.PENDING]
             );
 
             const sosId = result.rows[0].id;

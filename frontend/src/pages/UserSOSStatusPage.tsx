@@ -80,16 +80,25 @@ export function UserSOSStatusPage() {
         }
     }, [isConnected, sosId, emit, on, off]);
 
-    // Waiting timer effect
+    // Waiting timer effect independent of sos object changes
     useEffect(() => {
-        if (sos && sos.status === 'PENDING') {
-            const interval = setInterval(() => {
-                const seconds = differenceInSeconds(new Date(), new Date(sos.createdAt));
-                setWaitingSeconds(Math.max(0, seconds));
-            }, 1000);
-            return () => clearInterval(interval);
-        }
-    }, [sos]);
+        if (!sos || sos.status !== 'PENDING') return;
+
+        const createdTime = new Date(sos.createdAt).getTime();
+
+        const updateTimer = () => {
+            const now = Date.now();
+            const diff = Math.floor((now - createdTime) / 1000);
+            setWaitingSeconds(Math.max(0, diff));
+        };
+
+        // Update immediately
+        updateTimer();
+
+        // Update every second
+        const interval = setInterval(updateTimer, 1000);
+        return () => clearInterval(interval);
+    }, [sos?.createdAt, sos?.status]);
 
     // Format waiting time
     const formatWaitingTime = (seconds: number) => {
