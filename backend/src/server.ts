@@ -140,6 +140,8 @@ async function startServer() {
 
     logger.info('Starting Server...', {
         env: config.server.env,
+        nodeEnv: process.env.NODE_ENV,
+        databaseUrl: config.database.url ? 'Set (Hidden)' : 'Not Set',
         logLevel: config.logging.level
     });
 
