@@ -13,7 +13,7 @@
     "seed": "node scripts/seed-dev-data.js",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "start:prod": "node dist/server.js",
+    "start:prod": "npm run migrate:prod && node dist/server.js",
     "start:dev": "ts-node src/server.ts",
     "type-check": "tsc --noEmit"
   },
