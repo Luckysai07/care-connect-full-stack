@@ -21,16 +21,23 @@ const pool = new Pool({
     connectionTimeoutMillis: config.database.connectionTimeoutMillis,
     // Use SSL in production (Render/Cloud), or if explicitly implied by host/url
     // Render databases always require SSL
+    // NOTE: Internal Render URLs might NOT want SSL enforced?
+    // Let's debug this by logging what we decided.
     ssl: (config.isProduction() || config.database.url.includes('render.com')) && !process.env.NO_SSL
         ? { rejectUnauthorized: false }
         : false
 });
 
-/**
- * Handle pool errors
- * Prevents app crash on unexpected database errors
- */
+// DEBUG: specific logging for inspection (remove later)
+console.log('[DEBUG] DB Config:', {
+    isProduction: config.isProduction(),
+    urlContainsRender: config.database.url.includes('render.com'),
+    sslEnabled: (config.isProduction() || config.database.url.includes('render.com')) && !process.env.NO_SSL,
+    urlMasked: config.database.url.replace(/:[^:@]+@/, ':***@')
+});
+
 pool.on('error', (err: Error) => {
+    console.error('[FATAL] Unexpected database pool error:', err);
     logger.error('Unexpected database error', {
         error: err.message,
         stack: err.stack
@@ -42,6 +49,7 @@ pool.on('error', (err: Error) => {
  */
 pool.on('connect', () => {
     logger.debug('New database connection established');
+    console.log('[DEBUG] New database connection established');
 });
 
 pool.on('remove', () => {
@@ -54,14 +62,19 @@ pool.on('remove', () => {
  */
 export async function testConnection(): Promise<boolean> {
     try {
+        console.log('[DEBUG] Testing DB connection...');
         const result = await pool.query('SELECT NOW() as now, version() as version');
         const row = result.rows[0];
         logger.info('Database connection successful', {
             timestamp: row.now,
             version: row.version.split(' ')[0] + ' ' + row.version.split(' ')[1]
         });
+        console.log('[DEBUG] Database connection successful');
         return true;
     } catch (error: any) {
+        // Log the RAW error to console to ensure it shows up in Render logs
+        console.error('[DEBUG] RAW DB CONNECTION ERROR:', error);
+
         logger.error('Database connection failed', {
             error: error.message,
             stack: error.stack
