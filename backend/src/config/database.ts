@@ -21,9 +21,8 @@ const pool = new Pool({
     connectionTimeoutMillis: config.database.connectionTimeoutMillis,
     // Use SSL in production (Render/Cloud), or if explicitly implied by host/url
     // Render databases always require SSL
-    // NOTE: Internal Render URLs might NOT want SSL enforced?
-    // Let's debug this by logging what we decided.
-    ssl: (config.isProduction() || config.database.url.includes('render.com')) && !process.env.NO_SSL
+    // NOTE: We check for 'dpg' which is typically part of Render internal hostnames
+    ssl: (config.isProduction() || config.database.url.includes('render.com') || config.database.url.includes('dpg-')) && !process.env.NO_SSL
         ? { rejectUnauthorized: false }
         : false
 });
@@ -32,7 +31,8 @@ const pool = new Pool({
 console.log('[DEBUG] DB Config:', {
     isProduction: config.isProduction(),
     urlContainsRender: config.database.url.includes('render.com'),
-    sslEnabled: (config.isProduction() || config.database.url.includes('render.com')) && !process.env.NO_SSL,
+    urlContainsDpg: config.database.url.includes('dpg-'),
+    sslEnabled: (config.isProduction() || config.database.url.includes('render.com') || config.database.url.includes('dpg-')) && !process.env.NO_SSL,
     urlMasked: config.database.url.replace(/:[^:@]+@/, ':***@')
 });
 
