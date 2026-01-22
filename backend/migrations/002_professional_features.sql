@@ -7,7 +7,7 @@
 CREATE TABLE IF NOT EXISTS case_notes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     sos_id UUID NOT NULL REFERENCES sos_requests(id) ON DELETE CASCADE,
-    professional_id UUID NOT NULL REFERENCES professionals(id) ON DELETE CASCADE,
+    professional_id UUID NOT NULL REFERENCES professionals(user_id) ON DELETE CASCADE,
     note TEXT NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
