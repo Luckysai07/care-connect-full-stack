@@ -2,7 +2,7 @@
     "buildCommand": "npm run build",
     "outputDirectory": "dist",
     "framework": "vite",
-    "installCommand": "rm -f package-lock.json && npm install",
+    "installCommand": "rm -rf package-lock.json node_modules && npm install",
     "rewrites": [
         {
             "source": "/(.*)",
