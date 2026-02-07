@@ -22,7 +22,7 @@ const pool = new Pool({
     // Use SSL in production (Render/Cloud), or if explicitly implied by host/url
     // Render databases always require SSL
     // NOTE: We check for 'dpg' which is typically part of Render internal hostnames
-    ssl: (config.isProduction() || config.database.url.includes('render.com') || config.database.url.includes('dpg-')) && !process.env.NO_SSL
+    ssl: (config.isProduction() || config.database.url.includes('render.com') || config.database.url.includes('dpg-') || config.database.url.includes('neon.tech')) && !process.env.NO_SSL
         ? { rejectUnauthorized: false }
         : false
 });
@@ -32,7 +32,8 @@ console.log('[DEBUG] DB Config:', {
     isProduction: config.isProduction(),
     urlContainsRender: config.database.url.includes('render.com'),
     urlContainsDpg: config.database.url.includes('dpg-'),
-    sslEnabled: (config.isProduction() || config.database.url.includes('render.com') || config.database.url.includes('dpg-')) && !process.env.NO_SSL,
+    urlContainsNeon: config.database.url.includes('neon.tech'),
+    sslEnabled: (config.isProduction() || config.database.url.includes('render.com') || config.database.url.includes('dpg-') || config.database.url.includes('neon.tech')) && !process.env.NO_SSL,
     urlMasked: config.database.url.replace(/:[^:@]+@/, ':***@')
 });
 

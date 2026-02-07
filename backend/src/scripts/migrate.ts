@@ -19,6 +19,7 @@ const __dirname = path.dirname(__filename);
  * Run all migration files
  */
 async function runMigrations() {
+    console.log('[DEBUG] Starting migration script...');
     // Migrations are in 'migrations' folder at project root
     // We assume CWD is project root, or we navigate up from here.
     // src/scripts/migrate.ts -> dist/scripts/migrate.js
