@@ -17,8 +17,8 @@ declare global {
 }
 
 const config: RuntimeConfig = {
-    API_URL: window.__RUNTIME_CONFIG__?.API_URL || import.meta.env.VITE_API_URL || 'http://localhost:3000',
-    SOCKET_URL: window.__RUNTIME_CONFIG__?.SOCKET_URL || import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000'
+    API_URL: window.__RUNTIME_CONFIG__?.API_URL || import.meta.env.VITE_API_URL || 'https://care-connect-api-bl1z.onrender.com',
+    SOCKET_URL: window.__RUNTIME_CONFIG__?.SOCKET_URL || import.meta.env.VITE_SOCKET_URL || 'https://care-connect-api-bl1z.onrender.com'
 };
 
 export default config;
