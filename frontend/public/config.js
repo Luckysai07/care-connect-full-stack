@@ -1,4 +1,4 @@
 window.__RUNTIME_CONFIG__ = {
-    API_URL: "http://localhost:3000",
-    SOCKET_URL: "http://localhost:3000"
+    API_URL: "https://care-connect-api-bl1z.onrender.com",
+    SOCKET_URL: "https://care-connect-api-bl1z.onrender.com"
 };
