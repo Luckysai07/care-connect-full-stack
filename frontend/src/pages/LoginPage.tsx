@@ -11,6 +11,7 @@ import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { AlertCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { requestLocationAndUpdate } from '../utils/location.utils';
 
 export function LoginPage() {
     const navigate = useNavigate();
@@ -43,6 +44,12 @@ export function LoginPage() {
         try {
             await login(formData);
             toast.success('Login successful!');
+
+            // Request location permission and update backend
+            // This runs asynchronously and doesn't block navigation
+            requestLocationAndUpdate().catch(err => {
+                console.error('Location update failed:', err);
+            });
 
             // Redirect based on user role
             const userStr = localStorage.getItem('user');
